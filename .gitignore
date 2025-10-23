@@ -2,5 +2,10 @@ stuff/**/*
 __pycache__/**/*
 .DS_Store
 .env
+.venv
+.idea
+dev_stack/config
+.vscode
+
 .idea
 .venv

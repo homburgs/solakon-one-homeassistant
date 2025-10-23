@@ -5,7 +5,6 @@ import logging
 from typing import Any
 
 import voluptuous as vol
-
 from homeassistant import config_entries
 from homeassistant.const import CONF_HOST, CONF_NAME, CONF_PORT, CONF_SCAN_INTERVAL
 from homeassistant.core import HomeAssistant, callback
@@ -27,7 +26,7 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
             vol.Coerce(int), vol.Range(min=1, max=247)
         ),
         vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): vol.All(
-            vol.Coerce(int), vol.Range(min=10, max=300)
+            vol.Coerce(int), vol.Range(min=5, max=300)
         ),
     }
 )
@@ -44,7 +43,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     )
 
     await hub.async_setup()
-    
+
     if not await hub.async_test_connection():
         await hub.async_close()
         raise CannotConnect("Cannot connect to device")
@@ -65,7 +64,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     async def async_step_user(
-        self, user_input: dict[str, Any] | None = None
+            self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
         """Handle the initial step."""
         errors: dict[str, str] = {}
@@ -91,7 +90,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(
-        config_entry: config_entries.ConfigEntry,
+            config_entry: config_entries.ConfigEntry,
     ) -> config_entries.OptionsFlow:
         """Get the options flow for this handler."""
         return OptionsFlowHandler(config_entry)
@@ -104,9 +103,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         """Initialize options flow."""
         self.config_entry = config_entry
 
-    async def async_step_init(
-        self, user_input: dict[str, Any] | None = None
-    ) -> FlowResult:
+    async def async_step_init(self, user_input: dict[str, Any] | None = None) -> FlowResult:
         """Manage the options."""
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
@@ -120,7 +117,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                         default=self.config_entry.data.get(
                             CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
                         ),
-                    ): vol.All(vol.Coerce(int), vol.Range(min=10, max=300)),
+                    ): vol.All(vol.Coerce(int), vol.Range(min=5, max=300)),
                 }
             ),
         )
