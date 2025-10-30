@@ -34,13 +34,17 @@ REGISTERS = {
     # PV Input
     "pv1_voltage": {"address": 39070, "count": 1, "type": "i16", "scale": 10, "unit": "V"},
     "pv1_current": {"address": 39071, "count": 1, "type": "i16", "scale": 100, "unit": "A"},
+    "pv1_power": {"address": 39279, "count": 2, "type": "i32", "scale": 1, "unit": "W"},
     "pv2_voltage": {"address": 39072, "count": 1, "type": "i16", "scale": 10, "unit": "V"},
     "pv2_current": {"address": 39073, "count": 1, "type": "i16", "scale": 100, "unit": "A"},
+    "pv2_power": {"address": 39281, "count": 2, "type": "i32", "scale": 1, "unit": "W"},
     "pv3_voltage": {"address": 39074, "count": 1, "type": "i16", "scale": 10, "unit": "V"},
     "pv3_current": {"address": 39075, "count": 1, "type": "i16", "scale": 100, "unit": "A"},
+    "pv3_power": {"address": 39283, "count": 2, "type": "i32", "scale": 1, "unit": "W"},
     "pv4_voltage": {"address": 39076, "count": 1, "type": "i16", "scale": 10, "unit": "V"},
     "pv4_current": {"address": 39077, "count": 1, "type": "i16", "scale": 100, "unit": "A"},
-    "total_pv_power": {"address": 39118, "count": 2, "type": "i32", "scale": 1000, "unit": "kW"},
+    "pv4_power": {"address": 39285, "count": 2, "type": "i32", "scale": 1, "unit": "W"},
+    "total_pv_power": {"address": 39118, "count": 2, "type": "i32", "scale": 1, "unit": "W"},
     
     # Grid Information
     "grid_r_voltage": {"address": 39123, "count": 1, "type": "i16", "scale": 10, "unit": "V"},
@@ -49,7 +53,7 @@ REGISTERS = {
     "inverter_r_current": {"address": 39126, "count": 2, "type": "i32", "scale": 1000, "unit": "A"},
     "inverter_s_current": {"address": 39128, "count": 2, "type": "i32", "scale": 1000, "unit": "A"},
     "inverter_t_current": {"address": 39130, "count": 2, "type": "i32", "scale": 1000, "unit": "A"},
-    "active_power": {"address": 39134, "count": 2, "type": "i32", "scale": 1000, "unit": "kW"},
+    "active_power": {"address": 39134, "count": 2, "type": "i32", "scale": 1, "unit": "W"},
     "reactive_power": {"address": 39136, "count": 2, "type": "i32", "scale": 1000, "unit": "kvar"},
     "power_factor": {"address": 39138, "count": 1, "type": "i16", "scale": 1000},
     "grid_frequency": {"address": 39139, "count": 1, "type": "i16", "scale": 100, "unit": "Hz"},
@@ -90,18 +94,46 @@ REGISTERS = {
 # Sensor definitions for Home Assistant
 SENSOR_DEFINITIONS = {
     # Power sensors
+    "pv1_power": {
+        "name": "PV1 Power",
+        "device_class": "power",
+        "state_class": "measurement",
+        "unit": "W",
+        "icon": "mdi:solar-power",
+    },
+    "pv2_power": {
+        "name": "PV2 Power",
+        "device_class": "power",
+        "state_class": "measurement",
+        "unit": "W",
+        "icon": "mdi:solar-power",
+    },
+    "pv3_power": {
+        "name": "PV3 Power",
+        "device_class": "power",
+        "state_class": "measurement",
+        "unit": "W",
+        "icon": "mdi:solar-power",
+    },
+    "pv4_power": {
+        "name": "PV4 Power",
+        "device_class": "power",
+        "state_class": "measurement",
+        "unit": "W",
+        "icon": "mdi:solar-power",
+    },
     "total_pv_power": {
         "name": "PV Power",
         "device_class": "power",
         "state_class": "measurement",
-        "unit": "kW",
+        "unit": "W",
         "icon": "mdi:solar-power",
     },
     "active_power": {
         "name": "Active Power",
         "device_class": "power",
         "state_class": "measurement",
-        "unit": "kW",
+        "unit": "W",
         "icon": "mdi:flash",
     },
     "reactive_power": {
