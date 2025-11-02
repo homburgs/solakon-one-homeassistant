@@ -2,12 +2,14 @@ services:
 
   homeassistant:
     image: homeassistant/home-assistant:2025.10
+    pull_policy: always
     container_name: homeassistant_dev
     volumes:
       - ./config:/config
       - ../custom_components:/config/custom_components
     ports:
       - "8123:8123"
+      - "5678:5678"
     environment:
       - TZ=Europe/Berlin
       - PUID=1000
